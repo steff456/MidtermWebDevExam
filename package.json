@@ -1,0 +1,21 @@
+{
+  "name": "midterm-exam",
+  "version": "1.0.0",
+  "description": "back-end for the midterm exam",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/steff456/MidtermWebDevExam.git"
+  },
+  "author": "Stephannie Jimenez",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/steff456/MidtermWebDevExam/issues"
+  },
+  "homepage": "https://github.com/steff456/MidtermWebDevExam#readme"
+}
