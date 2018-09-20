@@ -1,12 +1,38 @@
 const _ = require("lodash");
 const express = require("express");
 const bodyParser = require("body-parser");
-const { MongoClient, ObjectID } = require("mongodb");
+const MongoUtil = require("./db/mongo-connect");
+//const {ObjectID} = require("mongodb");
 
-var { Todo } = require("./models/todo");
-var { User } = require("./models/user");
+//let { Todo } = require("./models/todo");
+//let { User } = require("./models/user");
 
-var app = express();
+const app = express();
 const port = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
+
+MongoUtil.connect('mongodb://localhost:27017/TodoApp', function(err) {
+  if (err) {
+    console.log('Unable to connect to Mongo.')
+    process.exit(1)
+  } else {
+    app.listen(port, () => {
+        console.log(`Started up at port ${port}`);
+    });
+  }
+});
+
+app.get('/all', function(req, res) {
+    let client = MongoUtil.get();
+    console.log('****')
+    let col = client.collection('Todos');
+    col.find().count().then((count) => {
+        console.log(`Todos count: ${count}`);
+        }, (err) => {
+        console.log('Unable to fetch the todos', err);
+        });
+})
+
+
+module.exports = { app };
