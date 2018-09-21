@@ -6,10 +6,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Container, Segment, Header, Grid } from 'semantic-ui-react';
 
 import Button from 'antd/lib/button';
+import Input from 'antd/lib/input';
 
 import Graph from './Graph';
+
+const { TextArea } = Input;
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
@@ -49,40 +53,35 @@ class HomePage extends React.PureComponent {
     },
   };
 
-  changeData = () => {
-    this.setState({
-      spec: {
-        data: {
-          values: [
-            { a: 'C', b: 2 },
-            { a: 'C', b: 7 },
-            { a: 'C', b: 4 },
-            { a: 'D', b: 1 },
-            { a: 'D', b: 2 },
-            { a: 'D', b: 6 },
-            { a: 'E', b: 8 },
-            { a: 'E', b: 4 },
-            { a: 'E', b: 7 },
-          ],
-        },
-        mark: 'point',
-        encoding: {
-          x: { field: 'a', type: 'nominal' },
-          y: { aggregate: 'average', field: 'b', type: 'quantitative' },
-        },
-      },
-    });
+  changeData = e => {
+    try {
+      this.setState({ spec: JSON.parse(e.target.value) });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   render() {
     const { spec } = this.state;
     return (
-      <div>
-        <Graph spec={spec} />
-        <Button type="primary" onClick={this.changeData}>
-          Change data
-        </Button>
-      </div>
+      <Container>
+        <Segment textAlign="center" basic>
+          <Header as="h1">Let's Visualize</Header>
+        </Segment>
+        <Grid stackable centered columns="equal">
+          <Grid.Row>
+            <Grid.Column width={6}>
+              <TextArea rows={12} size="large" onPressEnter={this.changeData} />
+              <Button type="primary" onClick={this.changeData}>
+                Change data
+              </Button>
+            </Grid.Column>
+            <Grid.Column width={10}>
+              <Graph spec={spec} />
+            </Grid.Column>
+          </Grid.Row>
+        </Grid>
+      </Container>
     );
   }
 }
