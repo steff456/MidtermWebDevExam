@@ -182,7 +182,8 @@
     "vega-embed": "^3.20.0",
     "vega-lite": "^3.0.0-rc6",
     "warning": "4.0.2",
-    "whatwg-fetch": "3.0.0"
+    "whatwg-fetch": "3.0.0",
+    "xlsx": "^0.14.0"
   },
   "devDependencies": {
     "add-asset-html-webpack-plugin": "2.1.3",

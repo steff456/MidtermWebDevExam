@@ -4,7 +4,7 @@ import vegaEmbed from 'vega-embed';
 import isEmpty from 'lodash/isEmpty';
 import isEqual from 'lodash/isEqual';
 
-class Graph extends React.Component {
+class Graph extends Component {
   static propTypes = {
     spec: PropTypes.object.isRequired,
   };

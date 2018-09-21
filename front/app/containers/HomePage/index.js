@@ -12,6 +12,7 @@ import Button from 'antd/lib/button';
 import Input from 'antd/lib/input';
 
 import Graph from './Graph';
+import UploadE from './UploadE';
 
 const { TextArea } = Input;
 
@@ -68,19 +69,28 @@ class HomePage extends React.PureComponent {
         <Segment textAlign="center" basic>
           <Header as="h1">Let's Visualize</Header>
         </Segment>
-        <Grid stackable centered columns="equal">
-          <Grid.Row>
-            <Grid.Column width={6}>
-              <TextArea rows={12} size="large" onPressEnter={this.changeData} />
-              <Button type="primary" onClick={this.changeData}>
-                Change data
-              </Button>
-            </Grid.Column>
-            <Grid.Column width={10}>
-              <Graph spec={spec} />
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+        <Segment>
+          <Grid stackable centered columns="equal">
+            <Grid.Row>
+              <Grid.Column width={6}>
+                <TextArea
+                  rows={12}
+                  size="large"
+                  onPressEnter={this.changeData}
+                />
+                <Button type="primary" onClick={this.changeData}>
+                  Change data
+                </Button>
+              </Grid.Column>
+              <Grid.Column width={10}>
+                <Graph spec={spec} />
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Segment>
+        <Segment>
+          <UploadE />
+        </Segment>
       </Container>
     );
   }

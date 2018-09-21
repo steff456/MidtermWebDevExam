@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 MongoUtil.connect('mongodb://localhost:27017', function(err) {
   if (err) {
     console.log('Unable to connect to Mongo.');
-    console.log(err);
     process.exit(1)
   } else {
 
@@ -28,7 +27,7 @@ MongoUtil.connect('mongodb://localhost:27017', function(err) {
 
 app.get('/all', function(req, res) {
     let client = MongoUtil.get();
-    console.log('****', client.collection);
+//    console.log('****', client.collection);
     let col = client.collection('Todos');
     col.find().count().then((count) => {
         console.log(`Todos count: ${count}`);
