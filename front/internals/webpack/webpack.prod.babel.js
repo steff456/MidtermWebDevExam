@@ -4,6 +4,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackPwaManifest = require('webpack-pwa-manifest');
 const OfflinePlugin = require('offline-plugin');
 const { HashedModuleIdsPlugin } = require('webpack');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = require('./webpack.base.babel')({
   mode: 'production',
@@ -19,6 +21,13 @@ module.exports = require('./webpack.base.babel')({
 
   optimization: {
     minimize: true,
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+      }),
+      new OptimizeCSSAssetsPlugin({}),
+    ],
     nodeEnv: 'production',
     sideEffects: true,
     concatenateModules: true,
@@ -70,10 +79,9 @@ module.exports = require('./webpack.base.babel')({
     }),
 
     new WebpackPwaManifest({
-      name: 'Ohana | Family Tree',
-      short_name: 'Ohana',
-      description:
-        'Ohana application for make Family trees',
+      name: 'React Boilerplate',
+      short_name: 'React Boilerplate',
+      description: 'React Boilerplate Interface',
       background_color: '#fafafa',
       theme_color: '#fafafa',
       icons: [

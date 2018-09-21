@@ -1,1 +1,1 @@
-# Front Part
+# React Boilerplate

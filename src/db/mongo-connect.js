@@ -7,10 +7,12 @@ let state = {
 const connect = function(url, done) {
   if (state.db) return done()
 
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(url, function(err, client) {
     if (err) return done(err)
-    state.db = db
-    done()
+
+    state.db = client.db("TodoApp");
+    // console.log("db", state.db.collection, err, url);
+    done();
   })
 }
 

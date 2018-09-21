@@ -3,7 +3,7 @@
 // -----------------------------------------------------------------------------
 /// Regular font family
 /// @type List
-$text-font-stack: 'Raleway',
+$text-font-stack: 'Montserrat',
 sans-serif !default;
 /// Code (monospace) font family
 /// @type List
@@ -17,10 +17,7 @@ monospace !default;
 $text-color: rgb(34, 34, 34) !default;
 /// Main brand color
 /// @type Color
-$primary-color: rgb(0, 255, 255) !default;
-/// Secondary brand color
-/// @type Color
-$secondary-color: rgb(102, 102, 102) !default;
+$brand-color: rgb(154, 43, 82) !default;
 /// Light grey
 /// @type Color
 $light-grey: rgb(237, 237, 237) !default;

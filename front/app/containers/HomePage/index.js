@@ -5,28 +5,84 @@
  */
 
 import React from 'react';
-import styled from 'styled-components';
-import { Container, Segment, Header } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
-import BarChart from './BarChart';
+import Button from 'antd/lib/button';
 
-const MainContainer = styled(Container)`
-  margin-top: 6em;
-  margin-bottom: 6em;
-`;
+import Graph from './Graph';
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
+  state = {
+    spec: {
+      $schema: 'https://vega.github.io/schema/vega-lite/v3.0.json',
+      description: 'A simple bar chart with embedded data.',
+      data: {
+        values: [
+          { a: 'A', b: 28 },
+          { a: 'B', b: 55 },
+          { a: 'C', b: 43 },
+          { a: 'D', b: 91 },
+          { a: 'E', b: 81 },
+          { a: 'F', b: 53 },
+          { a: 'G', b: 19 },
+          { a: 'H', b: 87 },
+          { a: 'I', b: 52 },
+        ],
+      },
+      mark: 'bar',
+      encoding: {
+        x: { field: 'a', type: 'ordinal' },
+        y: { field: 'b', type: 'quantitative' },
+      },
+    },
+    config: {
+      // default view background color
+      // covers the entire view component
+      background: '#ffffff',
+      axis: {
+        labelFont: 'serif',
+        labelFontSize: 16,
+        tickWidth: 3,
+        tickColor: 'red',
+      },
+    },
+  };
+
+  changeData = () => {
+    this.setState({
+      spec: {
+        data: {
+          values: [
+            { a: 'C', b: 2 },
+            { a: 'C', b: 7 },
+            { a: 'C', b: 4 },
+            { a: 'D', b: 1 },
+            { a: 'D', b: 2 },
+            { a: 'D', b: 6 },
+            { a: 'E', b: 8 },
+            { a: 'E', b: 4 },
+            { a: 'E', b: 7 },
+          ],
+        },
+        mark: 'point',
+        encoding: {
+          x: { field: 'a', type: 'nominal' },
+          y: { aggregate: 'average', field: 'b', type: 'quantitative' },
+        },
+      },
+    });
+  };
+
   render() {
+    const { spec } = this.state;
     return (
-      <MainContainer>
-        <Segment textAlign="center" basic>
-          <Header as="h1">My visualization!</Header>
-        </Segment>
-        <Segment basic>
-          <BarChart />
-        </Segment>
-      </MainContainer>
+      <div>
+        <Graph spec={spec} />
+        <Button type="primary" onClick={this.changeData}>
+          Change data
+        </Button>
+      </div>
     );
   }
 }

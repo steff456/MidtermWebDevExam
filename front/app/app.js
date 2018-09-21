@@ -14,23 +14,30 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
+
+// Import CSS Semantic Styles
+import 'semantic-ui-css/semantic.min.css';
+
+// Import Ant Design Styles
+import 'assets/themes/antdCustomTheme.less';
+
+// CSS Reset
+import 'assets/vendor/reset.css';
+
+// Normalize CSS
+import 'normalize.css';
+
+// Sanitize CSS
 import 'sanitize.css/sanitize.css';
 
-/* eslint-disable import/first */
-import '!style-loader!css-loader!resolve-url-loader!sass-loader?sourceMap!./assets/vendor/_normalize.scss';
-/* eslint-enable import/first */
+// Styles
+import 'assets/main.scss';
 
 // Import root app
 import App from 'containers/App';
 
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
-
-// Import Ant Design Styles
-import '!style-loader!css-loader!resolve-url-loader!sass-loader?sourceMap!./assets/antd.scss';
-
-// Import CSS Semantic Styles
-import 'semantic-ui-css/semantic.min.css';
 
 // Load the favicon and the .htaccess file
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -42,10 +49,6 @@ import configureStore from './configureStore';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
-
-/* eslint-disable import/first */
-import '!style-loader!css-loader!resolve-url-loader!sass-loader?sourceMap!./assets/main.scss';
-/* eslint-enable import/first */
 
 // Create redux store with history
 const initialState = {};
