@@ -9,8 +9,7 @@ class RateH extends Component {
     value: 0,
   };
   handleChange = value => {
-    try {
-    } catch (err) {}
+    console.log(value);
   };
   render() {
     const { value } = this.state;

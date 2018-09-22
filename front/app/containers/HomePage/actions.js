@@ -14,7 +14,9 @@ import {
 export const fetchGraphsList = () => async dispatch => {
   dispatch({ type: FETCHING_GRAPHS_LIST });
   try {
-    const { data } = await axios.get('http://localhost:8000/graphs');
+    const { data } = await axios.get(
+      'https://murmuring-anchorage-92089.herokuapp.com/graphs',
+    );
     dispatch({ type: UPDATE_GRAPHS_LIST, payload: data });
   } catch (error) {
     console.log(error);
@@ -33,11 +35,15 @@ export const saveGraphData = data => async dispatch => {
   //   payload: data,
   // });
   try {
-    const { res } = await axios.post('http://localhost:8000/graphs', data, {
-      headers: {
-        'Content-Type': 'application/json',
+    const { res } = await axios.post(
+      'https://murmuring-anchorage-92089.herokuapp.com/graphs',
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/json',
+        },
       },
-    });
+    );
     console.log(res);
     dispatch(fetchGraphsList());
     // dispatch({ type: SAVED_GRAPH, payload: res });
