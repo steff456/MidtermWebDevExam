@@ -1,4 +1,4 @@
-const { MongoClient, ObjectID } = require("mongodb");
+const { MongoClient } = require("mongodb");
 
 let state = {
   db: null,
@@ -10,8 +10,7 @@ const connect = function(url, done) {
   MongoClient.connect(url, function(err, client) {
     if (err) return done(err)
 
-    state.db = client.db("TodoApp");
-    // console.log("db", state.db.collection, err, url);
+    state.db = client.db("midterm");
     done();
   })
 }

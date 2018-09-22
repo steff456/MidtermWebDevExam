@@ -19,6 +19,7 @@
     },
     "homepage": "https://github.com/steff456/MidtermWebDevExam#readme",
     "dependencies": {
+        "cors": "^2.8.4",
         "express": "^4.16.3",
         "lodash": "^4.17.11",
         "mongodb": "^3.1.6"
