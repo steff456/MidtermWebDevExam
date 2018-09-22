@@ -26,3 +26,23 @@ export const setGraphData = data => ({
   type: UPDATE_GRAPH_DATA,
   payload: data,
 });
+
+export const saveGraphData = data => async dispatch => {
+  // dispatch({
+  //   type: SAVING_GRAPH,
+  //   payload: data,
+  // });
+  try {
+    const { res } = await axios.post('http://localhost:8000/graphs', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(res);
+    dispatch(fetchGraphsList());
+    // dispatch({ type: SAVED_GRAPH, payload: res });
+  } catch (error) {
+    console.log(error);
+    // dispatch({ type: FAIL_GRAPH_SAVE });
+  }
+};

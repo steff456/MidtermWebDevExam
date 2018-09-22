@@ -12,13 +12,14 @@ import notification from 'antd/lib/notification';
 import { Segment } from 'semantic-ui-react';
 
 // Redux
-import { setGraphData } from './actions';
+import { setGraphData, saveGraphData } from './actions';
 
 const { TextArea } = Input;
 
 class InputData extends Component {
   static propTypes = {
     setGraphData: PropTypes.func.isRequired,
+    saveGraphData: PropTypes.func.isRequired,
   };
 
   state = {
@@ -33,6 +34,16 @@ class InputData extends Component {
     const { text } = this.state;
     try {
       this.props.setGraphData(JSON.parse(text));
+    } catch (err) {
+      console.log(err);
+      this.openNotificationWithIcon('error');
+    }
+  };
+
+  saveData = () => {
+    const { text } = this.state;
+    try {
+      this.props.saveGraphData(JSON.parse(text));
     } catch (err) {
       console.log(err);
       this.openNotificationWithIcon('error');
@@ -72,6 +83,7 @@ class InputData extends Component {
 
 const mapDispatchToProps = {
   setGraphData,
+  saveGraphData,
 };
 
 export default connect(

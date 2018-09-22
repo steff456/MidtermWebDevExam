@@ -26,7 +26,7 @@ npm start
 
 You should receive a >"Started up at port 8000"
 
-4. Go to front file and install the dependencies for the front
+4. Go to front directory and install the dependencies for the front
 
 ```
 npm install
