@@ -6,94 +6,75 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, Segment, Header, Grid } from 'semantic-ui-react';
+import isEmpty from 'lodash/isEmpty';
 
-import Button from 'antd/lib/button';
-import Input from 'antd/lib/input';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
+import injectReducer from 'utils/injectReducer';
 
+// Semantic
+import { Container, Segment, Header } from 'semantic-ui-react';
+
+// Redux
+import { makeSelectGraphData } from './selectors';
+import { graphDataReducer } from './reducer';
+
+// Components
 import Graph from './Graph';
 import UploadE from './UploadE';
-
-const { TextArea } = Input;
+import GraphList from './GraphList';
+import RateH from './RateH';
+import InputData from './InputData';
 
 /* eslint-disable react/prefer-stateless-function */
 class HomePage extends React.PureComponent {
-  state = {
-    spec: {
-      $schema: 'https://vega.github.io/schema/vega-lite/v3.0.json',
-      description: 'A simple bar chart with embedded data.',
-      data: {
-        values: [
-          { a: 'A', b: 28 },
-          { a: 'B', b: 55 },
-          { a: 'C', b: 43 },
-          { a: 'D', b: 91 },
-          { a: 'E', b: 81 },
-          { a: 'F', b: 53 },
-          { a: 'G', b: 19 },
-          { a: 'H', b: 87 },
-          { a: 'I', b: 52 },
-        ],
-      },
-      mark: 'bar',
-      encoding: {
-        x: { field: 'a', type: 'ordinal' },
-        y: { field: 'b', type: 'quantitative' },
-      },
-    },
-    config: {
-      // default view background color
-      // covers the entire view component
-      background: '#ffffff',
-      axis: {
-        labelFont: 'serif',
-        labelFontSize: 16,
-        tickWidth: 3,
-        tickColor: 'red',
-      },
-    },
-  };
-
-  changeData = e => {
-    try {
-      this.setState({ spec: JSON.parse(e.target.value) });
-    } catch (err) {
-      console.log(err);
-    }
+  static propTypes = {
+    graphData: PropTypes.object.isRequired,
   };
 
   render() {
-    const { spec } = this.state;
+    const {
+      graphData: { spec },
+    } = this.props;
+    console.log(spec);
     return (
       <Container>
         <Segment textAlign="center" basic>
           <Header as="h1">Let's Visualize</Header>
         </Segment>
+        <Segment.Group>
+          <Segment textAlign="center">
+            {!isEmpty(spec) && <Graph spec={spec} />}
+          </Segment>
+          <InputData />
+        </Segment.Group>
         <Segment>
-          <Grid stackable centered columns="equal">
-            <Grid.Row>
-              <Grid.Column width={6}>
-                <TextArea
-                  rows={12}
-                  size="large"
-                  onPressEnter={this.changeData}
-                />
-                <Button type="primary" onClick={this.changeData}>
-                  Change data
-                </Button>
-              </Grid.Column>
-              <Grid.Column width={10}>
-                <Graph spec={spec} />
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
+          <GraphList />
         </Segment>
         <Segment>
           <UploadE />
+        </Segment>
+        <Segment textAlign="center">
+          <RateH />
         </Segment>
       </Container>
     );
   }
 }
 
-export default HomePage;
+const mapStateToProps = createStructuredSelector({
+  graphData: makeSelectGraphData(),
+});
+
+const withConnect = connect(mapStateToProps);
+
+const withReducer = injectReducer({
+  key: 'graphData',
+  reducer: graphDataReducer,
+});
+
+export default compose(
+  withReducer,
+  withConnect,
+)(HomePage);
